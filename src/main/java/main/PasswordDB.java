@@ -2,6 +2,7 @@ package main;
 
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,12 +20,17 @@ public class PasswordDB {
         JSONObject resultSet = new JSONObject();
 
         try {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream inputStream = classLoader.getResourceAsStream("oracleConfig.properties");
+            result += "about to setup InputStream ";
+            InputStream inputStream = new FileInputStream("/usr/local/tomcat/webapps/oracleConfig.properties");
+            result += "about to create Properties object ";
             Properties properties = new Properties();
+            result += "about to load properties file ";
             properties.load(inputStream);
+            result += "about to get url from properties file ";
             String url = properties.getProperty("url");
+            result += "about to get user from properties file ";
             String user = properties.getProperty("user");
+            result += "about to get password from properties file ";
             String password = properties.getProperty("password");
 
             TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
